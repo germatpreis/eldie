@@ -31,5 +31,5 @@ migrate create -ext sql -dir db/migration -seq init_schema
 Update the sql files then
 
 ```
-migrate -path db/migration -database "postgresql://root:secret@localhost:5432/eldie?sslmode=disable" -verbose up
+migrate -path server/db/migration -database "postgresql://root:secret@localhost:5432/eldie?sslmode=disable" -verbose up
 ```
