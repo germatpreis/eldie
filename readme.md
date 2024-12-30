@@ -20,6 +20,10 @@ https://github.com/golang-migrate/migrate/tree/master/cmd/migrate
 * `gin`: web framework
 * `migrate`: helps with database migrations
 
+## sqlc
+
+Schema doc is available [here](https://docs.sqlc.dev/en/stable/reference/config.html)
+
 ## Commands
 
 **create and run migration**
