@@ -11,4 +11,4 @@ services:
       - ./app.env
 
 volumes:
-  db:
+  db: {}
