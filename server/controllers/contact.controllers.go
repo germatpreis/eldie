@@ -103,7 +103,7 @@ func (cc *ContactController) GetContactById(ctx *gin.Context) {
 }
 
 func (cc *ContactController) GetAllContacts(ctx *gin.Context) {
-	var page = ctx.DefaultQuery("page", "1")
+	var page = ctx.DefaultQuery("page", "0")
 	var limit = ctx.DefaultQuery("limit", "10")
 
 	reqPageId, _ := strconv.Atoi(page)

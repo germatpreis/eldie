@@ -135,7 +135,6 @@ set
     last_name = coalesce($2, last_name),
     phone_number = coalesce($3, phone_number),
     street = coalesce($4, street),
-    last_name = coalesce($2, last_name),
     updated_at = coalesce($5, updated_at)
 where contact_id = $6
 returning contact_id, first_name, last_name, phone_number, street, created_at, updated_at

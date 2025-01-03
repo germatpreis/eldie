@@ -1,0 +1,30 @@
+### create
+POST http://localhost:8000/api/contacts
+Content-Type: application/json
+
+{
+  "first_name": "slarti",
+  "last_name": "bartfast",
+  "phone_number": "111",
+  "street": "high street 111"
+}
+
+### update
+PATCH http://localhost:8000/api/contacts/3677e526-b960-4097-84e2-89ee55c2d7b8
+Content-Type: application/json
+
+{
+  "first_name": "slarti",
+  "last_name": "bartfast",
+  "phone_number": "111",
+  "street": "high street 222"
+}
+
+### get single
+GET http://localhost:8000/api/contacts/3677e526-b960-4097-84e2-89ee55c2d7b8
+
+### get all
+GET http://localhost:8000/api/contacts
+
+### delete
+DELETE http://localhost:8000/api/contacts/3677e526-b960-4097-84e2-89ee55c2d7b8

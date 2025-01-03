@@ -25,7 +25,6 @@ set
     last_name = coalesce(sqlc.narg('last_name'), last_name),
     phone_number = coalesce(sqlc.narg('phone_number'), phone_number),
     street = coalesce(sqlc.narg('street'), street),
-    last_name = coalesce(sqlc.narg('last_name'), last_name),
     updated_at = coalesce(sqlc.narg('updated_at'), updated_at)
 where contact_id = sqlc.arg('contact_id')
 returning *;
