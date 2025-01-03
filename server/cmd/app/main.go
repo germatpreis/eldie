@@ -1,13 +1,21 @@
 package main
 
 import (
-	"github.com/germatpreis/eldie/server/internal/culprits"
+	"context"
+	dbCon "github.com/Geoff89/sqlccrud/db/sqlc"
+	"github.com/germatpreis/eldie/server/controllers"
+	"github.com/germatpreis/eldie/server/routes"
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
-	router := gin.Default()
-	router.GET("/culprits", culprits.GetCulprits)
+var (
+	server *gin.Engine
+	db     *dbCon.Queries
+	ctx    context.Context
 
-	router.Run("localhost:8080")
+	ContactController controllers.ContactController
+	ContactRouters    routes.ContactRoutes
+)
+
+func main() {
 }
