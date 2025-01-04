@@ -1,6 +1,7 @@
 # Links
 
 [Deploying a Golang RESTFUL API with Gin, SQLC and PostreSQL](https://dev.to/geoff89/deploying-a-golang-restful-api-with-gin-sqlc-and-postgresql-1lbl)
+[Food List with PH values](https://www.webpal.org/SAFE/aaarecovery/2_food_storage/Processing/lacf-phs.htm)
 
 ## Libraries
 
