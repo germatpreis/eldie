@@ -13,7 +13,7 @@ func NewRouteContact(contactController controllers.ContactController) ContactRou
 	return ContactRoutes{contactController}
 }
 
-func (cr *ContactRoutes) ContactRoute(rg *gin.RouterGroup) {
+func (cr *ContactRoutes) Router(rg *gin.RouterGroup) {
 	router := rg.Group("contacts")
 	router.POST("/", cr.contactController.CreateContact)
 	router.GET("/", cr.contactController.GetAllContacts)

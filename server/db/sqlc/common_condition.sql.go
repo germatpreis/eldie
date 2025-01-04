@@ -95,7 +95,7 @@ select cf.id as food_id, cf.ph_value, ccc.reasoning
 from common_conditions cc
          join common_conditions_culprits ccc on cc.id = ccc.condition_id
          join common_foods cf on ccc.food_id = cf.id
-where cc.code = $1
+where cc.id = $1
 `
 
 type ListCommonCulpritsForConditionRow struct {
@@ -104,8 +104,8 @@ type ListCommonCulpritsForConditionRow struct {
 	Reasoning sql.NullString  `json:"reasoning"`
 }
 
-func (q *Queries) ListCommonCulpritsForCondition(ctx context.Context, code string) ([]ListCommonCulpritsForConditionRow, error) {
-	rows, err := q.query(ctx, q.listCommonCulpritsForConditionStmt, listCommonCulpritsForCondition, code)
+func (q *Queries) ListCommonCulpritsForCondition(ctx context.Context, id int64) ([]ListCommonCulpritsForConditionRow, error) {
+	rows, err := q.query(ctx, q.listCommonCulpritsForConditionStmt, listCommonCulpritsForCondition, id)
 	if err != nil {
 		return nil, err
 	}
@@ -132,7 +132,7 @@ select cs.id as symptom_id, cs.name, cs.code, cs.description
 from common_conditions cc
          join public.common_conditions_symptoms ccs on cc.id = ccs.condition_id
          join public.common_symptoms cs on cs.id = ccs.symptom_id
-where cc.code = $1
+where cc.id = $1
 `
 
 type ListCommonSymptomsForConditionRow struct {
@@ -142,8 +142,8 @@ type ListCommonSymptomsForConditionRow struct {
 	Description string `json:"description"`
 }
 
-func (q *Queries) ListCommonSymptomsForCondition(ctx context.Context, code string) ([]ListCommonSymptomsForConditionRow, error) {
-	rows, err := q.query(ctx, q.listCommonSymptomsForConditionStmt, listCommonSymptomsForCondition, code)
+func (q *Queries) ListCommonSymptomsForCondition(ctx context.Context, id int64) ([]ListCommonSymptomsForConditionRow, error) {
+	rows, err := q.query(ctx, q.listCommonSymptomsForConditionStmt, listCommonSymptomsForCondition, id)
 	if err != nil {
 		return nil, err
 	}

@@ -1,0 +1,8 @@
+### list all conditions
+GET http://localhost:8000/api/conditions
+
+### list culprits for condition lpr
+GET http://localhost:8000/api/conditions/1/culprits
+
+### list symptoms for condition lpr
+GET http://localhost:8000/api/conditions/1/symptoms

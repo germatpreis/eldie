@@ -20,7 +20,10 @@ var (
 	ctx    context.Context
 
 	ContactController controllers.ContactController
-	ContactRouters    routes.ContactRoutes
+	ContactRoutes     routes.ContactRoutes
+
+	CommonConditionController controllers.CommonConditionController
+	CommonConditionRoutes     routes.CommonConditionRoutes
 )
 
 func init() {
@@ -39,7 +42,10 @@ func init() {
 	fmt.Println("connected to postgres")
 
 	ContactController = *controllers.NewContactController(db, ctx)
-	ContactRouters = routes.NewRouteContact(ContactController)
+	ContactRoutes = routes.NewRouteContact(ContactController)
+
+	CommonConditionController := *controllers.NewCommonConditionController(db, ctx)
+	CommonConditionRoutes = routes.NewCommonConditionRoute(CommonConditionController)
 
 	server = gin.Default()
 }
@@ -54,7 +60,8 @@ func main() {
 		ctx.JSON(http.StatusOK, gin.H{"message": "ok"})
 	})
 
-	ContactRouters.ContactRoute(router)
+	ContactRoutes.Router(router)
+	CommonConditionRoutes.Router(router)
 
 	server.NoRoute(func(ctx *gin.Context) {
 		ctx.JSON(http.StatusNotFound, gin.H{"message": "route does not exist"})

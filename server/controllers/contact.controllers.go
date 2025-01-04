@@ -121,7 +121,7 @@ func (cc *ContactController) GetAllContacts(ctx *gin.Context) {
 		contacts = []db.Contact{}
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"status": "Successfully retrieved contacts", "contacts": contacts})
+	ctx.JSON(http.StatusOK, gin.H{"status": "Successfully retrieved contacts", "result": contacts})
 }
 
 func (cc *ContactController) DeleteContact(ctx *gin.Context) {
