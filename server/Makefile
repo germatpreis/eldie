@@ -8,7 +8,8 @@ vet: fmt
 	go vet ./...
 
 build: vet
-	go build -o ./bin/server ./cmd/app
+	go build -o ./bin/server .
+	cp app.env bin
 
 clean:
 	go clean
