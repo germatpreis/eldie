@@ -5,10 +5,46 @@
 package db
 
 import (
+	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
 )
+
+type CommonCondition struct {
+	ID                     int64  `json:"id"`
+	Code                   string `json:"code"`
+	Name                   string `json:"name"`
+	Description            string `json:"description"`
+	DurationHealingPhase   int32  `json:"duration_healing_phase"`
+	DurationChallengePhase int32  `json:"duration_challenge_phase"`
+	DaysBetweenPhases      int32  `json:"days_between_phases"`
+}
+
+type CommonConditionsCulprit struct {
+	ConditionID int64          `json:"condition_id"`
+	FoodID      int64          `json:"food_id"`
+	Reasoning   sql.NullString `json:"reasoning"`
+}
+
+type CommonConditionsSymptom struct {
+	ConditionID int64 `json:"condition_id"`
+	SymptomID   int64 `json:"symptom_id"`
+}
+
+type CommonFood struct {
+	ID        int64           `json:"id"`
+	Name      string          `json:"name"`
+	FoodGroup sql.NullString  `json:"food_group"`
+	PhValue   sql.NullFloat64 `json:"ph_value"`
+}
+
+type CommonSymptom struct {
+	ID          int64  `json:"id"`
+	Name        string `json:"name"`
+	Code        string `json:"code"`
+	Description string `json:"description"`
+}
 
 type Contact struct {
 	ContactID   uuid.UUID `json:"contact_id"`

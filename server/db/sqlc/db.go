@@ -30,8 +30,23 @@ func Prepare(ctx context.Context, db DBTX) (*Queries, error) {
 	if q.deleteContactStmt, err = db.PrepareContext(ctx, deleteContact); err != nil {
 		return nil, fmt.Errorf("error preparing query DeleteContact: %w", err)
 	}
+	if q.getCommonConditionByCodeStmt, err = db.PrepareContext(ctx, getCommonConditionByCode); err != nil {
+		return nil, fmt.Errorf("error preparing query GetCommonConditionByCode: %w", err)
+	}
+	if q.getCommonConditionByIdStmt, err = db.PrepareContext(ctx, getCommonConditionById); err != nil {
+		return nil, fmt.Errorf("error preparing query GetCommonConditionById: %w", err)
+	}
 	if q.getContactByIdStmt, err = db.PrepareContext(ctx, getContactById); err != nil {
 		return nil, fmt.Errorf("error preparing query GetContactById: %w", err)
+	}
+	if q.listCommonConditionsStmt, err = db.PrepareContext(ctx, listCommonConditions); err != nil {
+		return nil, fmt.Errorf("error preparing query ListCommonConditions: %w", err)
+	}
+	if q.listCommonCulpritsForConditionStmt, err = db.PrepareContext(ctx, listCommonCulpritsForCondition); err != nil {
+		return nil, fmt.Errorf("error preparing query ListCommonCulpritsForCondition: %w", err)
+	}
+	if q.listCommonSymptomsForConditionStmt, err = db.PrepareContext(ctx, listCommonSymptomsForCondition); err != nil {
+		return nil, fmt.Errorf("error preparing query ListCommonSymptomsForCondition: %w", err)
 	}
 	if q.listContactsStmt, err = db.PrepareContext(ctx, listContacts); err != nil {
 		return nil, fmt.Errorf("error preparing query ListContacts: %w", err)
@@ -54,9 +69,34 @@ func (q *Queries) Close() error {
 			err = fmt.Errorf("error closing deleteContactStmt: %w", cerr)
 		}
 	}
+	if q.getCommonConditionByCodeStmt != nil {
+		if cerr := q.getCommonConditionByCodeStmt.Close(); cerr != nil {
+			err = fmt.Errorf("error closing getCommonConditionByCodeStmt: %w", cerr)
+		}
+	}
+	if q.getCommonConditionByIdStmt != nil {
+		if cerr := q.getCommonConditionByIdStmt.Close(); cerr != nil {
+			err = fmt.Errorf("error closing getCommonConditionByIdStmt: %w", cerr)
+		}
+	}
 	if q.getContactByIdStmt != nil {
 		if cerr := q.getContactByIdStmt.Close(); cerr != nil {
 			err = fmt.Errorf("error closing getContactByIdStmt: %w", cerr)
+		}
+	}
+	if q.listCommonConditionsStmt != nil {
+		if cerr := q.listCommonConditionsStmt.Close(); cerr != nil {
+			err = fmt.Errorf("error closing listCommonConditionsStmt: %w", cerr)
+		}
+	}
+	if q.listCommonCulpritsForConditionStmt != nil {
+		if cerr := q.listCommonCulpritsForConditionStmt.Close(); cerr != nil {
+			err = fmt.Errorf("error closing listCommonCulpritsForConditionStmt: %w", cerr)
+		}
+	}
+	if q.listCommonSymptomsForConditionStmt != nil {
+		if cerr := q.listCommonSymptomsForConditionStmt.Close(); cerr != nil {
+			err = fmt.Errorf("error closing listCommonSymptomsForConditionStmt: %w", cerr)
 		}
 	}
 	if q.listContactsStmt != nil {
@@ -106,23 +146,33 @@ func (q *Queries) queryRow(ctx context.Context, stmt *sql.Stmt, query string, ar
 }
 
 type Queries struct {
-	db                 DBTX
-	tx                 *sql.Tx
-	createContactStmt  *sql.Stmt
-	deleteContactStmt  *sql.Stmt
-	getContactByIdStmt *sql.Stmt
-	listContactsStmt   *sql.Stmt
-	updateContactStmt  *sql.Stmt
+	db                                 DBTX
+	tx                                 *sql.Tx
+	createContactStmt                  *sql.Stmt
+	deleteContactStmt                  *sql.Stmt
+	getCommonConditionByCodeStmt       *sql.Stmt
+	getCommonConditionByIdStmt         *sql.Stmt
+	getContactByIdStmt                 *sql.Stmt
+	listCommonConditionsStmt           *sql.Stmt
+	listCommonCulpritsForConditionStmt *sql.Stmt
+	listCommonSymptomsForConditionStmt *sql.Stmt
+	listContactsStmt                   *sql.Stmt
+	updateContactStmt                  *sql.Stmt
 }
 
 func (q *Queries) WithTx(tx *sql.Tx) *Queries {
 	return &Queries{
-		db:                 tx,
-		tx:                 tx,
-		createContactStmt:  q.createContactStmt,
-		deleteContactStmt:  q.deleteContactStmt,
-		getContactByIdStmt: q.getContactByIdStmt,
-		listContactsStmt:   q.listContactsStmt,
-		updateContactStmt:  q.updateContactStmt,
+		db:                                 tx,
+		tx:                                 tx,
+		createContactStmt:                  q.createContactStmt,
+		deleteContactStmt:                  q.deleteContactStmt,
+		getCommonConditionByCodeStmt:       q.getCommonConditionByCodeStmt,
+		getCommonConditionByIdStmt:         q.getCommonConditionByIdStmt,
+		getContactByIdStmt:                 q.getContactByIdStmt,
+		listCommonConditionsStmt:           q.listCommonConditionsStmt,
+		listCommonCulpritsForConditionStmt: q.listCommonCulpritsForConditionStmt,
+		listCommonSymptomsForConditionStmt: q.listCommonSymptomsForConditionStmt,
+		listContactsStmt:                   q.listContactsStmt,
+		updateContactStmt:                  q.updateContactStmt,
 	}
 }
